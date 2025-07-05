@@ -1,0 +1,319 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Sevillana&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Base styles and resets */
+:root {
+  --space-black: #030203;
+  --space-dark: #0a0a1a;
+  --space-purple-50: #f3e8ff;
+  --space-purple-100: #e5ccff;
+  --space-purple-200: #d1a9ff;
+  --space-purple-300: #b980ff;
+  --space-purple-400: #9d55ff;
+  --space-purple-500: #8833ff;
+  --space-purple-600: #7042F8;
+  --space-purple-700: #5e35cc;
+  --space-purple-800: #4c2ba6;
+  --space-purple-900: #3c2180;
+  --space-cyan-500: #0ff0fc;
+  --space-cyan-600: #0cd6e2;
+}
+
+/* Base styles for text selection */
+::selection {
+  background: rgba(168, 85, 247, 0.2);
+  color: #fff;
+}
+
+/* Enable pointer events and text selection by default */
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(136, 84, 208, 0.7) rgba(74, 36, 109, 0.5);
+  -webkit-tap-highlight-color: transparent;
+  scroll-behavior: smooth;
+  background-color: var(--space-black);
+  color: #fff;
+  font-family: 'Inter', sans-serif;
+}
+
+/* Main content wrapper */
+#__next, main {
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+/* Ensure interactive elements are clickable */
+a, button, [role="button"] {
+  cursor: pointer;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+/* Allow text selection by default */
+p, h1, h2, h3, h4, h5, h6, span {
+  @apply select-text;
+}
+
+/* Focus styles */
+*:focus {
+  outline: none;
+}
+
+*:focus-visible {
+  outline: none;
+  @apply ring-2 ring-purple-500/50 ring-offset-0;
+}
+
+/* Remove focus styles for mouse users */
+*:focus:not(:focus-visible) {
+  outline: none;
+  @apply ring-0;
+}
+
+/* Responsive typography */
+@media (max-width: 640px) {
+  h1 {
+    font-size: 1.875rem !important; /* 30px */
+  }
+  h2 {
+    font-size: 1.5rem !important; /* 24px */
+  }
+  h3 {
+    font-size: 1.25rem !important; /* 20px */
+  }
+  p, li {
+    font-size: 1rem !important; /* 16px */
+  }
+}
+
+/* Special text effects */
+.fire-text {
+  color: #f5f5f5;
+  text-shadow: 0px -2px 4px #fff, 0px -2px 10px #FF3, 0px -10px 20px #F90, 0px -20px 40px #C33;
+  animation: burning 6s infinite;
+}
+
+@keyframes burning {
+  0%, 100% {
+    text-shadow: 0px 0px 2px #fff;
+  }
+  25% {
+    text-shadow: 0px -1px 2px #fff, 0px -1px 5px #FF6, 0px -5px 10px #F93, 0px -10px 20px #C44;
+  }
+  50% {
+    text-shadow: 0px -2px 4px #fff, 0px -2px 10px #FF3, 0px -10px 20px #F90, 0px -20px 40px #C33;
+  }
+  75% {
+    text-shadow: 0px -1px 2px #fff, 0px -1px 5px #FF6, 0px -5px 10px #F93, 0px -10px 20px #C44;
+  }
+}
+
+.purple-fire-text {
+  color: #f5f5f5;
+  text-shadow: 0px -2px 4px #fff, 0px -2px 10px #B23AEE, 0px -10px 20px #8A2BE2, 0px -20px 40px #7D26CD;
+  animation: purple-burning 6s infinite;
+}
+
+@keyframes purple-burning {
+  0%, 100% {
+    text-shadow: 0px 0px 2px #fff;
+  }
+  25% {
+    text-shadow: 0px -1px 2px #fff, 0px -1px 5px #B23AEE, 0px -5px 10px #8A2BE2, 0px -10px 20px #7D26CD;
+  }
+  50% {
+    text-shadow: 0px -2px 4px #fff, 0px -2px 10px #B23AEE, 0px -10px 20px #8A2BE2, 0px -20px 40px #7D26CD;
+  }
+  75% {
+    text-shadow: 0px -1px 2px #fff, 0px -1px 5px #B23AEE, 0px -5px 10px #8A2BE2, 0px -10px 20px #7D26CD;
+  }
+}
+
+@keyframes borderAnimation {
+  0% {
+    border-color: red;
+  }
+  25% {
+    border-color: green;
+  }
+  50% {
+    border-color: blue;
+  }
+  75% {
+    border-color: yellow;
+  }
+  100% {
+    border-color: red;
+  }
+}
+
+.border-animate {
+  animation: borderAnimation 4s linear infinite;
+}
+
+.video-container::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100px;
+  background: linear-gradient(to bottom, transparent, var(--space-black));
+  pointer-events: none;
+}
+
+.cursive {
+  font-family: 'Sevillana', cursive;
+}
+
+.welcome-text {
+  background: linear-gradient(
+      0deg,
+      rgba(255, 255, 255, 0.4),
+      rgba(255, 255, 255, 0.4)
+    ),
+    linear-gradient(90.01deg, #e59cff 0.01%, #ba9cff 50.01%, #7d97f7 100%);
+  background-blend-mode: normal, screen;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.welcome-box {
+  isolation: isolate;
+  overflow: hidden;
+  align-items: center;
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+  border-radius: 32px;
+  box-shadow: inset 0 -7px 11px rgba(164, 143, 255, 0.12);
+  display: flex;
+  position: relative;
+  width: -moz-max-content;
+  width: max-content;
+  transition: 0.45s cubic-bezier(0.6, 0.6, 0, 1) box-shadow;
+}
+
+/* Button styles */
+.button-primary {
+  background: linear-gradient(
+      180deg,
+      rgba(60, 8, 126, 0) 0%,
+      rgba(60, 8, 126, 0.32) 100%
+    ),
+    rgba(113, 47, 255, 0.12);
+  box-shadow: inset 0 0 12px rgba(191, 151, 255, 0.24);
+  transition: all 0.3s ease;
+}
+
+.button-primary:hover {
+  background: linear-gradient(
+      180deg,
+      rgba(60, 8, 126, 0) 0%,
+      rgba(60, 8, 126, 0.42) 100%
+    ),
+    rgba(113, 47, 255, 0.24);
+  box-shadow: inset 0 0 12px rgba(191, 151, 255, 0.44);
+  transform: translateY(-2px);
+}
+
+.button-primary:active {
+  transform: translateY(1px);
+}
+
+/* Reusable component classes */
+@layer components {
+  .card-base {
+    @apply bg-space-dark/90 backdrop-blur-md rounded-xl border border-space-purple-600/30 p-6 shadow-space;
+  }
+  
+  .heading-gradient {
+    @apply bg-gradient-to-r from-space-purple-400 to-space-cyan-500 text-transparent bg-clip-text;
+  }
+  
+  .input-base {
+    @apply bg-space-dark/50 border border-space-purple-600/30 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-space-purple-500;
+  }
+  
+  .responsive-container {
+    @apply w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+  
+  .flex-center {
+    @apply flex items-center justify-center;
+  }
+  
+  .flex-between {
+    @apply flex items-center justify-between;
+  }
+}
+
+/* Scrollbar Styles */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(74, 36, 109, 0.5);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-image: linear-gradient(
+    to bottom,
+    rgba(136, 84, 208, 0.7),
+    rgba(74, 36, 109, 0.5)
+  );
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-image: linear-gradient(
+    to bottom,
+    rgba(136, 84, 208, 1),
+    rgba(74, 36, 109, 0.7)
+  );
+}
+
+/* Hide scrollbar utility class */
+.scrollbar-hidden {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.scrollbar-hidden::-webkit-scrollbar {
+  display: none;
+}
+
+/* Cross-browser compatibility fixes */
+@supports (-webkit-touch-callout: none) {
+  /* iOS-specific styles */
+  .ios-height-fix {
+    height: -webkit-fill-available;
+  }
+}
+
+@supports not (backdrop-filter: blur(10px)) {
+  /* Fallback for browsers that don't support backdrop-filter */
+  .backdrop-blur-md {
+    background-color: rgba(10, 10, 26, 0.95) !important;
+  }
+}
+
+/* Media query for reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
