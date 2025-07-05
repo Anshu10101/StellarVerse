@@ -42,7 +42,7 @@ const HistoricalEvents = () => {
     fetchEvents();
   }, []);
 
-  // Function to render appropriate heading based on data source
+  // Function to render appropriate message based on data source
   const renderSourceMessage = () => {
     switch (dataSource) {
       case 'space_events_today':
@@ -64,7 +64,7 @@ const HistoricalEvents = () => {
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5, delay: 0.2 }}
           >
-            No space events occurred on {date} in history. Here are other notable events from this day.
+            No space events occurred on {date} in history. Here&apos;s other notable events from this day.
           </motion.p>
         );
       case 'mock_space_events':
@@ -75,7 +75,7 @@ const HistoricalEvents = () => {
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5, delay: 0.2 }}
           >
-            Unable to fetch today's historical events. Here are notable space milestones throughout history.
+            Unable to fetch today&apos;s historical events. Here are notable space milestones throughout history.
           </motion.p>
         );
       default:

@@ -73,7 +73,7 @@ const AstronomyPicture = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
         >
-          NASA's Astronomy Picture of the Day
+          NASA&apos;s Astronomy Picture of the Day
         </motion.h2>
 
         <motion.p

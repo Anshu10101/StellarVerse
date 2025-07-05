@@ -46,7 +46,7 @@ export default function WeatherSection() {
             Space Weather Monitor
           </h2>
           <p className="text-gray-300 text-base md:text-lg mb-6">
-            Stay informed about solar activity, geomagnetic conditions, and potential space weather events that could affect Earth's magnetic field and technology.
+            Stay informed about solar activity, geomagnetic conditions, and potential space weather events that could affect Earth&apos;s magnetic field and technology.
           </p>
           <div className="flex flex-wrap gap-4">
             <div className="bg-purple-500/20 backdrop-blur-sm rounded-lg p-4">

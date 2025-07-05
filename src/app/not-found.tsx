@@ -8,7 +8,7 @@ export default function NotFound() {
       </h1>
       <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">Lost in Space</h2>
       <p className="text-xl text-gray-300 max-w-md mb-10">
-        Looks like you've drifted beyond the known universe. This page doesn't exist in our cosmic map.
+        Looks like you&apos;ve drifted beyond the known universe. This page doesn&apos;t exist in our cosmic map.
       </p>
       <div className="mb-12 relative w-64 h-64">
         <div className="absolute inset-0 rounded-full bg-purple-900/30 animate-pulse"></div>
