@@ -8,7 +8,7 @@ interface WikiEvent {
 }
 
 // Define data source types for clarity
-export type DataSourceType = 'space_events_today' | 'mock_space_events';
+export type DataSourceType = 'space_events_today' | 'mock_space_events' | 'general_events_today';
 
 interface EventResponse {
   date: string;
