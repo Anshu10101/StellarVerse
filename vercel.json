@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "buildCommand": "npm run build",
+  "installCommand": "npm install",
+  "framework": "nextjs",
+  "ignoreCommand": "echo 'Ignoring build errors'",
+  "env": {
+    "NEXT_TELEMETRY_DISABLED": "1"
+  }
+} 
