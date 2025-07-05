@@ -98,4 +98,4 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - All contributors and space enthusiasts
 
 ---
-Built with 💫 for [Your Hackathon Name] by [Your Name]
+Built for [SRM AARUSH'25 ASTRALWEB HACKATHON] by [Anshul Yadav]
