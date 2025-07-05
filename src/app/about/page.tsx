@@ -21,7 +21,7 @@ export default function AboutPage() {
             for space enthusiasts of all ages and backgrounds.
           </p>
           <p className="text-gray-300 leading-relaxed">
-            Whether you're tracking celestial events through our calendar, testing your knowledge 
+            Whether you&apos;re tracking celestial events through our calendar, testing your knowledge 
             with our space quizzes, or simply exploring the cosmos through our content, 
             StellarVerse is your gateway to the universe.
           </p>
