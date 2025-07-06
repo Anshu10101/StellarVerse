@@ -2,7 +2,7 @@
 
 StellarVerse is an immersive web application that brings the wonders of space exploration to your fingertips. Built with modern web technologies and designed for space enthusiasts, this platform offers an interactive journey through the cosmos.
 
-![StellarVerse](public/blackhole-golden.mp4)
+![StellarVerse](public/demo.png)
 
 🔗 [Live Demo](https://stellarverse.vercel.app/)
 
