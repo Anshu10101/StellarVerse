@@ -166,10 +166,6 @@ npm start
 
 Contributions are welcome! Please feel free to submit a Pull Request. For major changes, please open an issue first to discuss what you would like to change.
 
-## 📝 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
 ## 🙏 Acknowledgments
 
 - NASA for their Open APIs
@@ -178,4 +174,4 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - All contributors and space enthusiasts
 
 ---
-Built with 💫 by [Anshul Yadav] for space enthusiasts everywhere
+Built 💫 by Anshul Yadav for space enthusiasts everywhere
