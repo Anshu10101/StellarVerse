@@ -156,11 +156,18 @@ This project is licensed under the MIT License.
 
 ## 🤝 Contributing
 
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Submit a pull request
+Contributions are welcome! Please feel free to submit a Pull Request. For major changes, please open an issue first to discuss what you would like to change.
 
-## 📞 Support
+## 📝 License
 
-For support or questions, please open an issue on GitHub.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 🙏 Acknowledgments
+
+- NASA for their Open APIs
+- Space Weather Prediction Center
+- Wikipedia for historical events data
+- All contributors and space enthusiasts
+
+---
+Built with 💫 by [Anshul Yadav] for space enthusiasts everywhere
