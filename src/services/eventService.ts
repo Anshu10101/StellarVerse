@@ -7,12 +7,23 @@ interface WikiEvent {
   }[];
 }
 
+interface NASAEvent {
+  date: string;
+  title: string;
+  explanation: string;
+  url: string;
+  hdurl?: string;
+  media_type: string;
+  copyright?: string;
+}
+
 // Define data source types for clarity
-export type DataSourceType = 'space_events_today' | 'mock_space_events' | 'general_events_today';
+export type DataSourceType = 'space_events_today' | 'mock_space_events' | 'general_events_today' | 'nasa_apod_events';
 
 interface EventResponse {
   date: string;
   events: WikiEvent[];
+  nasaEvents: NASAEvent[];
   loading: boolean;
   error: string | null;
   dataSource: DataSourceType;
@@ -83,6 +94,9 @@ const mockSpaceEvents: WikiEvent[] = [
   }
 ];
 
+// NASA API configuration
+const NASA_API_KEY = process.env.NEXT_PUBLIC_NASA_API_KEY || 'DEMO_KEY';
+
 // Function to check if text contains any of the space-related keywords
 function isSpaceRelated(text: string): boolean {
   const lowerText = text.toLowerCase();
@@ -102,8 +116,70 @@ function isSpaceRelated(text: string): boolean {
 }
 
 /**
+ * Fetches historical NASA APOD data for the current date across different years
+ */
+async function getHistoricalNASAEvents(date: Date = new Date()): Promise<NASAEvent[]> {
+  const nasaEvents: NASAEvent[] = [];
+  const currentYear = date.getFullYear();
+  const month = date.getMonth() + 1;
+  const day = date.getDate();
+  
+  // Get APOD data for the current date from the last 10 years
+  const yearsToFetch = Array.from({ length: 10 }, (_, i) => currentYear - i - 1);
+  
+  try {
+    console.log(`Fetching NASA APOD events for ${month}/${day} across ${yearsToFetch.length} years`);
+    
+    const promises = yearsToFetch.map(async (year) => {
+      try {
+        const dateString = `${year}-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`;
+        const url = `https://api.nasa.gov/planetary/apod?date=${dateString}&api_key=${NASA_API_KEY}`;
+        
+        console.log(`Fetching NASA APOD for ${dateString}`);
+        
+        const response = await fetch(url, {
+          headers: {
+            'Accept': 'application/json',
+            'User-Agent': 'StellarVerse/1.0'
+          }
+        });
+
+        if (!response.ok) {
+          console.warn(`Failed to fetch NASA APOD for ${year}: ${response.status} ${response.statusText}`);
+          return null;
+        }
+
+        const data = await response.json();
+        
+        // Only include image type APODs
+        if (data.media_type === 'image') {
+          return {
+            ...data,
+            date: dateString
+          };
+        }
+        
+        return null;
+      } catch (error) {
+        console.error(`Error fetching NASA APOD for ${year}:`, error);
+        return null;
+      }
+    });
+
+    const results = await Promise.all(promises);
+    const validResults = results.filter(result => result !== null) as NASAEvent[];
+    
+    console.log(`Successfully fetched ${validResults.length} NASA APOD events`);
+    return validResults;
+  } catch (error) {
+    console.error('Error fetching historical NASA events:', error);
+    return [];
+  }
+}
+
+/**
  * Fetches astronomical events that occurred on a specific date in history
- * from the Wikipedia API, with fallback to mock data if the API call fails
+ * from the Wikipedia API and NASA APOD API, with fallback to mock data if the API calls fail
  */
 export async function getHistoricalAstronomyEvents(date: Date = new Date()): Promise<EventResponse> {
   try {
@@ -117,73 +193,84 @@ export async function getHistoricalAstronomyEvents(date: Date = new Date()): Pro
       year: 'numeric'
     });
     
-    try {
-      const url = `https://api.wikimedia.org/feed/v1/wikipedia/en/onthisday/events/${month}/${day}`;
-      
-      const response = await fetch(url, {
-        headers: {
-          'Accept': 'application/json',
-          'User-Agent': 'StellarVerse/1.0 (education project)'
-        }
-      });
-      
-      if (!response.ok) {
-        throw new Error(`Failed to fetch: ${response.status} ${response.statusText}`);
-      }
-      
-      const data = await response.json();
-      
-      // Filter events related to astronomy using strict keyword matching
-      const astronomyEvents = data.events
-        .filter((event: any) => isSpaceRelated(event.text))
-        .map((event: any) => ({
-          year: event.year,
-          description: event.text,
-          links: event.pages?.map((page: any) => ({
-            title: page.normalizedtitle || page.title,
-            url: page.content_urls?.desktop?.page || ""
-          })) || []
-        }));
-      
-      // If no astronomy events found, use mock data instead of general events
-      if (astronomyEvents.length === 0) {
-        return {
-          date: formattedDate,
-          events: mockSpaceEvents,
-          loading: false,
-          error: null,
-          dataSource: 'mock_space_events'
-        };
-      }
-      
-      return {
-        date: formattedDate,
-        events: astronomyEvents,
-        loading: false,
-        error: null,
-        dataSource: 'space_events_today'
-      };
-      
-    } catch (apiError) {
-      console.error('Error fetching from Wikipedia API, using mock data:', apiError);
-      
-      // Return mock data when API fails
-      return {
-        date: formattedDate,
-        events: mockSpaceEvents,
-        loading: false,
-        error: null,
-        dataSource: 'mock_space_events'
-      };
+    // Fetch both Wikipedia events and NASA APOD events in parallel
+    const [wikiEvents, nasaEvents] = await Promise.allSettled([
+      fetchWikipediaEvents(month, day),
+      getHistoricalNASAEvents(date)
+    ]);
+    
+    let events: WikiEvent[] = [];
+    let dataSource: DataSourceType = 'mock_space_events';
+    
+    // Process Wikipedia events
+    if (wikiEvents.status === 'fulfilled' && wikiEvents.value.length > 0) {
+      events = wikiEvents.value;
+      dataSource = 'space_events_today';
+    } else {
+      events = mockSpaceEvents;
+      dataSource = 'mock_space_events';
     }
+    
+    // Process NASA events
+    const nasaEventList = nasaEvents.status === 'fulfilled' ? nasaEvents.value : [];
+    
+    return {
+      date: formattedDate,
+      events,
+      nasaEvents: nasaEventList,
+      loading: false,
+      error: null,
+      dataSource
+    };
+    
   } catch (error) {
     console.error('Unexpected error:', error);
     return {
       date: new Date().toLocaleDateString(),
       events: mockSpaceEvents,
+      nasaEvents: [],
       loading: false,
       error: null,
       dataSource: 'mock_space_events'
     };
+  }
+}
+
+/**
+ * Fetches Wikipedia events for a specific date
+ */
+async function fetchWikipediaEvents(month: number, day: number): Promise<WikiEvent[]> {
+  try {
+    const url = `https://api.wikimedia.org/feed/v1/wikipedia/en/onthisday/events/${month}/${day}`;
+    
+    const response = await fetch(url, {
+      headers: {
+        'Accept': 'application/json',
+        'User-Agent': 'StellarVerse/1.0 (education project)'
+      }
+    });
+    
+    if (!response.ok) {
+      throw new Error(`Failed to fetch: ${response.status} ${response.statusText}`);
+    }
+    
+    const data = await response.json();
+    
+    // Filter events related to astronomy using strict keyword matching
+    const astronomyEvents = data.events
+      .filter((event: any) => isSpaceRelated(event.text))
+      .map((event: any) => ({
+        year: event.year,
+        description: event.text,
+        links: event.pages?.map((page: any) => ({
+          title: page.normalizedtitle || page.title,
+          url: page.content_urls?.desktop?.page || ""
+        })) || []
+      }));
+    
+    return astronomyEvents;
+  } catch (error) {
+    console.error('Error fetching Wikipedia events:', error);
+    return [];
   }
 } 

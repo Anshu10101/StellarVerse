@@ -3,79 +3,13 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import DatePicker from "@/components/Calendar/DatePicker";
-import { getHistoricalAstronomyEvents } from "@/services/eventService";
-import EventCard from "@/components/Events/EventCard";
-import type { DataSourceType } from "@/services/eventService";
-
-interface Event {
-  year: number;
-  description: string;
-  links?: {
-    title: string;
-    url: string;
-  }[];
-}
+import HistoricalEvents from "@/components/Events/HistoricalEvents";
 
 export default function CalendarPage() {
   const [selectedDate, setSelectedDate] = useState(new Date());
-  const [events, setEvents] = useState<Event[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-  const [dataSource, setDataSource] = useState<DataSourceType>('space_events_today');
 
-  // Fetch events when component mounts
-  useEffect(() => {
-    fetchEvents(new Date());
-  }, []);
-
-  const fetchEvents = async (date: Date) => {
-    try {
-      setLoading(true);
-      setError(null);
-      const response = await getHistoricalAstronomyEvents(date);
-      setEvents(response.events);
-      setDataSource(response.dataSource);
-    } catch (err) {
-      setError("Failed to fetch events. Please try again.");
-      console.error(err);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const handleDateSelect = async (date: Date) => {
+  const handleDateSelect = (date: Date) => {
     setSelectedDate(date);
-    await fetchEvents(date);
-  };
-
-  // Function to render appropriate heading based on data source
-  const renderSourceMessage = () => {
-    switch (dataSource) {
-      case 'space_events_today':
-        return (
-          <motion.p
-            className="text-xl text-center text-emerald-300 mb-6 max-w-3xl mx-auto"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-          >
-            Space events that occurred on this day in history
-          </motion.p>
-        );
-      case 'mock_space_events':
-        return (
-          <motion.p
-            className="text-xl text-center text-purple-300 mb-6 max-w-3xl mx-auto"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-          >
-            Notable space milestones throughout history
-          </motion.p>
-        );
-      default:
-        return null;
-    }
   };
 
   return (
@@ -118,43 +52,18 @@ export default function CalendarPage() {
         />
       </motion.div>
 
-      {!loading && !error && renderSourceMessage()}
-
-      <div className="w-full max-w-4xl backdrop-blur-sm">
-        {loading ? (
-          <div className="flex justify-center items-center py-12">
-            <div className="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-purple-500"></div>
-          </div>
-        ) : error ? (
+      <div className="w-full max-w-6xl backdrop-blur-sm">
+        <AnimatePresence mode="wait">
           <motion.div
-            className="bg-red-900/20 border border-red-500/30 text-white p-4 rounded-lg text-center"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
+            key={selectedDate.toISOString()}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.5 }}
           >
-            {error}
+            <HistoricalEvents date={selectedDate} />
           </motion.div>
-        ) : (
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={selectedDate.toISOString()}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.5 }}
-              className="space-y-6"
-            >
-              {events.map((event, index) => (
-                <EventCard
-                  key={`${event.year}-${index}`}
-                  year={event.year}
-                  description={event.description}
-                  links={event.links}
-                  delay={index}
-                />
-              ))}
-            </motion.div>
-          </AnimatePresence>
-        )}
+        </AnimatePresence>
       </div>
     </div>
   );

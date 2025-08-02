@@ -39,6 +39,7 @@ function Menu() {
             transition={{ duration: 0.3, staggerChildren: 0.1 }}
           >
             <MenuItem text="Home" url="/" />
+            <MenuItem text="Space Journey" url="/journey" />
             <MenuItem text="Calendar" url="/calendar" />
             <MenuItem text="Quiz" url="/quiz" />
             <MenuItem text="About" url="/about" />

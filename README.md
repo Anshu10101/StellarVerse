@@ -1,181 +1,166 @@
-# 🌌 StellarVerse - Your Gateway to the Cosmos
+# StellarVerse - Space Exploration & Astronomy Hub
 
-StellarVerse is an immersive web application that brings the wonders of space exploration to your fingertips. Built with modern web technologies and designed for space enthusiasts, this platform offers an interactive journey through the cosmos.
+A comprehensive space exploration and astronomy web application that combines real-time space data, historical events, and interactive features.
 
-![StellarVerse](public/demo.png)
+## 🌟 Features
 
-🔗 [Live Demo](https://stellarverse.vercel.app/)
+### 🚀 Enhanced Events System
+- **Historical Space Events**: Displays events from Wikipedia's "On This Day" API filtered for space-related content
+- **NASA APOD Integration**: Shows historical Astronomy Pictures of the Day for the selected date across multiple years
+- **Tabbed Navigation**: Switch between "All Events", "Wikipedia Events", and "NASA APOD" views
+- **Interactive Cards**: Each event card includes:
+  - Year badges and descriptions
+  - Wikipedia links for historical events
+  - High-resolution NASA images for APOD events
+  - Text-to-speech functionality
+  - Hover animations and visual effects
 
-## ✨ Features
+### 📅 Calendar Integration
+- **Date Picker**: Select any date to view historical space events
+- **Real-time Updates**: Events update automatically when date changes
+- **Responsive Design**: Works seamlessly on desktop and mobile devices
 
-### 1. Interactive Space Calendar 📅
-- Track celestial events and space mission dates
-- Historical space events for each day
-- Integration with Wikipedia's "On This Day" API
-- Beautiful event cards with links to detailed information
+### 🛰️ Space Data Integration
+- **NASA APOD**: Daily astronomy pictures with detailed explanations
+- **Space Weather**: Real-time solar activity and space weather data
+- **Historical Events**: Wikipedia-based space history events
+- **Interactive Features**: Speech synthesis, animations, and responsive UI
 
-### 2. Real-time Space Weather 🌠
-- Monitor solar activity and space weather conditions
-- Geomagnetic storm alerts
-- Aurora visibility predictions
-- Interactive weather visualization
+### 🎨 Modern UI/UX
+- **Space-themed Design**: Dark theme with cosmic gradients and animations
+- **Smooth Animations**: Framer Motion powered transitions
+- **Responsive Layout**: Optimized for all screen sizes
+- **Accessibility**: Text-to-speech and keyboard navigation support
 
-### 3. NASA Integration 🚀
-- Daily Astronomy Picture of the Day (APOD)
-- High-resolution space imagery
-- Detailed scientific explanations
-- Full-resolution image viewing capability
-
-### 4. Space Quiz 🎯
-- Test your knowledge about space and astronomy
-- Multiple difficulty levels
-- Various space-related topics
-- Score tracking and educational feedback
-
-### 5. Immersive UI/UX 🎨
-- Dynamic animations using Framer Motion
-- Responsive design for all devices
-- Space-themed visual effects
-- Interactive sound effects
-- Beautiful backdrop animations
-
-## 🛠️ Installation and Setup
+## 🚀 Getting Started
 
 ### Prerequisites
-- Node.js (v18.0.0 or higher)
-- npm (v9.0.0 or higher)
-- Git
+- Node.js 18+ 
+- npm or yarn
 
-### Step 1: Clone the Repository
+### Installation
 ```bash
-git clone https://github.com/Anshu10101/StellarVerse.git
+# Clone the repository
+git clone <repository-url>
 cd StellarVerse
-```
 
-### Step 2: Install Dependencies
-```bash
+# Install dependencies
 npm install
-```
 
-### Step 3: Environment Setup
-Create a `.env.local` file in the root directory:
-```env
-# NASA API Key (Required for APOD)
-NASA_API_KEY=your_nasa_api_key
+# Set up environment variables
+cp .env.example .env.local
+# Add your NASA API key to .env.local
+NEXT_PUBLIC_NASA_API_KEY=your_nasa_api_key_here
 
-# Optional: Space Weather API Key
-SPACE_WEATHER_API_KEY=your_space_weather_api_key
-```
-
-### Step 4: Run Development Server
-```bash
+# Run the development server
 npm run dev
 ```
 
-The application will be available at `http://localhost:3000`
+### NASA API Key
+To enable NASA APOD features, get a free API key from:
+https://api.nasa.gov/
 
-### Step 5: Build for Production
-```bash
-npm run build
-npm start
+## 📁 Project Structure
+
+```
+StellarVerse/
+├── src/
+│   ├── app/                    # Next.js app router
+│   │   ├── calendar/          # Calendar page with date picker
+│   │   └── page.tsx           # Home page
+│   ├── components/
+│   │   ├── Events/            # Events system components
+│   │   │   ├── HistoricalEvents.tsx    # Main events container
+│   │   │   ├── EventCard.tsx          # Wikipedia events card
+│   │   │   └── NASAEventCard.tsx      # NASA APOD events card
+│   │   ├── Calendar/          # Date picker components
+│   │   ├── NASA/              # NASA API components
+│   │   └── Weather/           # Space weather components
+│   ├── services/
+│   │   ├── eventService.ts    # Events API integration
+│   │   ├── nasaService.ts     # NASA API integration
+│   │   └── spaceWeatherService.ts
+│   └── utils/                 # Utility functions
 ```
 
-## 🔧 Tech Stack
+## 🔧 API Integrations
 
-### Core Technologies
-- **Next.js 14**: React framework with server-side rendering
-- **TypeScript**: For type safety and better development experience
-- **Tailwind CSS**: Utility-first CSS framework
-- **Framer Motion**: For smooth animations and transitions
+### Events System
+- **Wikipedia API**: Fetches historical events filtered for space-related content
+- **NASA APOD API**: Retrieves historical astronomy pictures for specific dates
+- **Fallback System**: Mock data when APIs are unavailable
 
-### UI Components
-- **@dotlottie/react-player**: For Lottie animations
-- **@heroicons/react**: For beautiful icons
-- **react-icons**: Additional icon library
+### Data Sources
+- **Wikipedia On This Day**: Historical space events
+- **NASA APOD**: Astronomy pictures with explanations
+- **Space Weather**: Solar activity and space weather data
 
-### 3D and Visual Effects
-- **@react-three/drei**: Three.js helpers and ready-made components
-- **@react-three/fiber**: React renderer for Three.js
-- **three.js**: 3D graphics library
+## 🎯 Key Features
 
-### Development Tools
-- **ESLint**: Code linting
-- **PostCSS**: CSS processing
-- **Autoprefixer**: CSS vendor prefixing
+### Events Display
+- **Dual Source**: Combines Wikipedia events with NASA APOD data
+- **Smart Filtering**: Automatically filters for space-related content
+- **Rich Media**: High-resolution images from NASA APOD
+- **Interactive Elements**: Speech synthesis, external links, hover effects
 
-## 📦 Dependencies
+### Calendar Functionality
+- **Date Selection**: Pick any date to view historical events
+- **Real-time Updates**: Events refresh when date changes
+- **Smooth Transitions**: Animated transitions between dates
 
-### Production Dependencies
-```json
-{
-  "@dotlottie/react-player": "^1.6.15",
-  "@heroicons/react": "^2.1.1",
-  "date-fns": "^4.1.0",
-  "next": "^14.1.0",
-  "react": "^18.2.0",
-  "react-dom": "^18.2.0",
-  "react-icons": "^4.12.0"
-}
-```
+### User Experience
+- **Tabbed Interface**: Switch between different event types
+- **Loading States**: Smooth loading animations
+- **Error Handling**: Graceful fallbacks when APIs fail
+- **Accessibility**: Screen reader support and keyboard navigation
 
-### Development Dependencies
-```json
-{
-  "@react-three/drei": "^9.92.7",
-  "@react-three/fiber": "^8.15.12",
-  "@types/node": "^20",
-  "@types/react": "^18",
-  "@types/react-dom": "^18",
-  "autoprefixer": "^10.0.1",
-  "eslint": "^8",
-  "eslint-config-next": "^14.1.0",
-  "framer-motion": "^10.16.16",
-  "postcss": "^8",
-  "tailwindcss": "^3.3.0",
-  "three": "^0.160.0",
-  "typescript": "^5"
-}
-```
+## 🛠️ Technologies Used
 
-## 🌟 Unique Features
+- **Next.js 14**: React framework with app router
+- **TypeScript**: Type-safe development
+- **Tailwind CSS**: Utility-first styling
+- **Framer Motion**: Smooth animations
+- **NASA APIs**: APOD and space data
+- **Wikipedia API**: Historical events data
 
-1. **Interactive Sound Design**
-   - Custom sound effects for user interactions
-   - Background ambient space sounds
-   - Mute/unmute functionality
+## 📱 Responsive Design
 
-2. **Dynamic Visual Effects**
-   - Parallax star background
-   - Animated space particles
-   - Smooth page transitions
-   - Loading animations
+The application is fully responsive and optimized for:
+- Desktop computers
+- Tablets
+- Mobile devices
+- Touch interfaces
 
-3. **Responsive Design**
-   - Mobile-first approach
-   - Tablet and desktop optimizations
-   - Touch-friendly interactions
-   - Adaptive layouts
+## 🎨 Customization
 
-4. **Performance Optimizations**
-   - Image optimization with Next.js
-   - Lazy loading components
-   - Code splitting
-   - Progressive Web App capabilities
+### Styling
+- Space-themed dark color scheme
+- Cosmic gradients and animations
+- Custom CSS variables for easy theming
+
+### Components
+- Modular component architecture
+- Reusable UI components
+- Custom hooks for data fetching
+
+## 🚀 Deployment
+
+The application can be deployed to:
+- Vercel (recommended)
+- Netlify
+- Any static hosting service
+
+## 📄 License
+
+This project is licensed under the MIT License.
 
 ## 🤝 Contributing
 
-Contributions are welcome! Please feel free to submit a Pull Request. For major changes, please open an issue first to discuss what you would like to change.
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Submit a pull request
 
-## 📝 License
+## 📞 Support
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## 🙏 Acknowledgments
-
-- NASA for their Open APIs
-- Space Weather Prediction Center
-- Wikipedia for historical events data
-- All contributors and space enthusiasts
-
----
-Built with 💫 by [Anshul Yadav] for space enthusiasts everywhere
+For support or questions, please open an issue on GitHub.

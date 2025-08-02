@@ -36,6 +36,7 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
             }}
           >
             <MobileMenuItem text="Home" url="/" onClick={onClose} />
+            <MobileMenuItem text="Space Journey" url="/journey" onClick={onClose} />
             <MobileMenuItem text="Calendar" url="/calendar" onClick={onClose} />
             <MobileMenuItem text="Quiz" url="/quiz" onClick={onClose} />
             <MobileMenuItem text="About" url="/about" onClick={onClose} />

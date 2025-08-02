@@ -1,12 +1,17 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    domains: ['apod.nasa.gov'],
+    domains: ['apod.nasa.gov', 'images.unsplash.com'],
     remotePatterns: [
       {
         protocol: 'https',
         hostname: 'apod.nasa.gov',
         pathname: '/apod/image/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'images.unsplash.com',
+        pathname: '/**',
       },
     ],
   },
