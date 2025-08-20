@@ -4,6 +4,7 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { audioPlayer } from "@/utils/audio";
 import Image from "next/image";
+import React from "react"; // Added missing import
 
 interface TimelineEvent {
   id: number;
@@ -29,7 +30,7 @@ const timelineEvents: TimelineEvent[] = [
     category: "cosmic",
     era: "~13.8 Billion Years Ago",
     progress: 0,
-    image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800&h=600&fit=crop",
+    image: "/images/timeline/big-bang.png",
     links: [
       { title: "Big Bang", url: "https://en.wikipedia.org/wiki/Big_Bang" },
       { title: "Cosmology", url: "https://en.wikipedia.org/wiki/Physical_cosmology" }
@@ -43,7 +44,7 @@ const timelineEvents: TimelineEvent[] = [
     category: "stellar",
     era: "~13.6 Billion Years Ago",
     progress: 1.4,
-    image: "https://images.unsplash.com/photo-1462331940025-496df7c1d41a?w=800&h=600&fit=crop",
+    image: "/images/timeline/first-stars.png",
     links: [
       { title: "Population III Stars", url: "https://en.wikipedia.org/wiki/Population_III_stars" },
       { title: "Stellar Evolution", url: "https://en.wikipedia.org/wiki/Stellar_evolution" }
@@ -57,7 +58,7 @@ const timelineEvents: TimelineEvent[] = [
     category: "cosmic",
     era: "~13.2 Billion Years Ago",
     progress: 4.3,
-    image: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=600&fit=crop",
+    image: "/images/timeline/first-galaxies.png",
     links: [
       { title: "Galaxy Formation", url: "https://en.wikipedia.org/wiki/Galaxy_formation_and_evolution" },
       { title: "Early Universe", url: "https://en.wikipedia.org/wiki/Chronology_of_the_universe" }
@@ -71,7 +72,7 @@ const timelineEvents: TimelineEvent[] = [
     category: "stellar",
     era: "~4.6 Billion Years Ago",
     progress: 66.7,
-    image: "https://images.unsplash.com/photo-1614728894747-a83421e2b9c9?w=800&h=600&fit=crop",
+    image: "/images/timeline/sun-formation.png",
     links: [
       { title: "Solar System Formation", url: "https://en.wikipedia.org/wiki/Formation_and_evolution_of_the_Solar_System" },
       { title: "Sun", url: "https://en.wikipedia.org/wiki/Sun" }
@@ -85,7 +86,7 @@ const timelineEvents: TimelineEvent[] = [
     category: "planetary",
     era: "~4.5 Billion Years Ago",
     progress: 67.4,
-    image: "https://images.unsplash.com/photo-1614730321146-b6fa6a46bcb4?w=800&h=600&fit=crop",
+    image: "/images/timeline/earth-formation.png",
     links: [
       { title: "Earth", url: "https://en.wikipedia.org/wiki/Earth" },
       { title: "Geological History", url: "https://en.wikipedia.org/wiki/Geological_history_of_Earth" }
@@ -99,7 +100,7 @@ const timelineEvents: TimelineEvent[] = [
     category: "planetary",
     era: "~4.4 Billion Years Ago",
     progress: 68.1,
-    image: "https://images.unsplash.com/photo-1522030299830-16c8c3fc1b3c?w=800&h=600&fit=crop",
+    image: "/images/timeline/moon-formation.png",
     links: [
       { title: "Moon", url: "https://en.wikipedia.org/wiki/Moon" },
       { title: "Giant Impact Hypothesis", url: "https://en.wikipedia.org/wiki/Giant-impact_hypothesis" }
@@ -113,7 +114,7 @@ const timelineEvents: TimelineEvent[] = [
     category: "planetary",
     era: "~3.5 Billion Years Ago",
     progress: 74.6,
-    image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&h=600&fit=crop",
+    image: "/images/timeline/earliest-life.png",
     links: [
       { title: "Origin of Life", url: "https://en.wikipedia.org/wiki/Abiogenesis" },
       { title: "History of Life", url: "https://en.wikipedia.org/wiki/History_of_life" }
@@ -127,7 +128,7 @@ const timelineEvents: TimelineEvent[] = [
     category: "discovery",
     era: "1609",
     progress: 88.3,
-    image: "https://images.unsplash.com/photo-1516339901601-2e1b62dc0c45?w=800&h=600&fit=crop",
+    image: "/images/timeline/galileo-telescope.png",
     links: [
       { title: "Galileo Galilei", url: "https://en.wikipedia.org/wiki/Galileo_Galilei" },
       { title: "Telescope", url: "https://en.wikipedia.org/wiki/Telescope" }
@@ -141,7 +142,7 @@ const timelineEvents: TimelineEvent[] = [
     category: "discovery",
     era: "1687",
     progress: 87.8,
-    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&h=600&fit=crop",
+    image: "/images/timeline/newton-principia.png",
     links: [
       { title: "Isaac Newton", url: "https://en.wikipedia.org/wiki/Isaac_Newton" },
       { title: "Principia", url: "https://en.wikipedia.org/wiki/Philosophi%C3%A6_Naturalis_Principia_Mathematica" }
@@ -155,7 +156,7 @@ const timelineEvents: TimelineEvent[] = [
     category: "discovery",
     era: "1916",
     progress: 86.1,
-    image: "https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=800&h=600&fit=crop",
+    image: "/images/timeline/general-relativity.png",
     links: [
       { title: "General Relativity", url: "https://en.wikipedia.org/wiki/General_relativity" },
       { title: "Albert Einstein", url: "https://en.wikipedia.org/wiki/Albert_Einstein" }
@@ -169,7 +170,7 @@ const timelineEvents: TimelineEvent[] = [
     category: "discovery",
     era: "1929",
     progress: 86.0,
-    image: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=600&fit=crop",
+    image: "/images/timeline/hubble-expansion.png",
     links: [
       { title: "Edwin Hubble", url: "https://en.wikipedia.org/wiki/Edwin_Hubble" },
       { title: "Hubble's Law", url: "https://en.wikipedia.org/wiki/Hubble%27s_law" }
@@ -183,7 +184,7 @@ const timelineEvents: TimelineEvent[] = [
     category: "mission",
     era: "1969",
     progress: 85.9,
-    image: "https://images.unsplash.com/photo-1541185933-ef5d8ed016c2?w=800&h=600&fit=crop",
+    image: "/images/timeline/apollo.png",
     links: [
       { title: "Apollo 11", url: "https://en.wikipedia.org/wiki/Apollo_11" },
       { title: "Neil Armstrong", url: "https://en.wikipedia.org/wiki/Neil_Armstrong" }
@@ -197,7 +198,7 @@ const timelineEvents: TimelineEvent[] = [
     category: "technology",
     era: "1990",
     progress: 85.8,
-    image: "https://images.unsplash.com/photo-1446776877081-d282a0f896e2?w=800&h=600&fit=crop",
+    image: "/images/timeline/hubble-telescope.png",
     links: [
       { title: "Hubble Space Telescope", url: "https://en.wikipedia.org/wiki/Hubble_Space_Telescope" }
     ]
@@ -210,7 +211,7 @@ const timelineEvents: TimelineEvent[] = [
     category: "mission",
     era: "2004",
     progress: 85.5,
-    image: "https://images.unsplash.com/photo-1614730321146-b6fa6a46bcb4?w=800&h=600&fit=crop",
+    image: "/images/timeline/cassini-saturn.png",
     links: [
       { title: "Cassini-Huygens", url: "https://en.wikipedia.org/wiki/Cassini%E2%80%93Huygens" },
       { title: "Saturn", url: "https://en.wikipedia.org/wiki/Saturn" }
@@ -224,7 +225,7 @@ const timelineEvents: TimelineEvent[] = [
     category: "discovery",
     era: "2015",
     progress: 85.4,
-    image: "https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=800&h=600&fit=crop",
+    image: "/images/timeline/ligo.png",
     links: [
       { title: "LIGO", url: "https://en.wikipedia.org/wiki/LIGO" },
       { title: "Gravitational Wave", url: "https://en.wikipedia.org/wiki/Gravitational_wave" }
@@ -238,7 +239,7 @@ const timelineEvents: TimelineEvent[] = [
     category: "discovery",
     era: "2019",
     progress: 85.3,
-    image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800&h=600&fit=crop",
+    image: "/images/timeline/black-hole.png",
     links: [
       { title: "Event Horizon Telescope", url: "https://en.wikipedia.org/wiki/Event_Horizon_Telescope" },
       { title: "Black Hole", url: "https://en.wikipedia.org/wiki/Black_hole" }
@@ -252,7 +253,7 @@ const timelineEvents: TimelineEvent[] = [
     category: "technology",
     era: "2021",
     progress: 85.3,
-    image: "https://images.unsplash.com/photo-1446776877081-d282a0f896e2?w=800&h=600&fit=crop",
+    image: "/images/timeline/jwst.png",
     links: [
       { title: "James Webb Space Telescope", url: "https://en.wikipedia.org/wiki/James_Webb_Space_Telescope" }
     ]
@@ -265,7 +266,7 @@ const timelineEvents: TimelineEvent[] = [
     category: "mission",
     era: "2024",
     progress: 85.3,
-    image: "https://images.unsplash.com/photo-1541185933-ef5d8ed016c2?w=800&h=600&fit=crop",
+    image: "/images/timeline/artemis-1.png",
     links: [
       { title: "Artemis Program", url: "https://en.wikipedia.org/wiki/Artemis_program" },
       { title: "Artemis I", url: "https://en.wikipedia.org/wiki/Artemis_1" }
@@ -279,7 +280,7 @@ const timelineEvents: TimelineEvent[] = [
     category: "mission",
     era: "2025",
     progress: 85.3,
-    image: "https://images.unsplash.com/photo-1541185933-ef5d8ed016c2?w=800&h=600&fit=crop",
+    image: "/images/timeline/artemis-2.png",
     links: [
       { title: "Artemis II", url: "https://en.wikipedia.org/wiki/Artemis_2" }
     ]
@@ -300,6 +301,21 @@ export default function SpaceJourneyPage() {
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [selectedEvent, setSelectedEvent] = useState<TimelineEvent | null>(null);
   const [imageError, setImageError] = useState(false);
+  const [availableImages, setAvailableImages] = useState<Record<string, boolean>>({});
+
+  // Preload and verify local image availability once on mount
+  // Only mark images that actually load; others will not be rendered
+  React.useEffect(() => {
+    const urls = (timelineEvents.map(e => e.image).filter(Boolean) as string[]).filter(
+      (url, idx, arr) => arr.indexOf(url) === idx
+    );
+    urls.forEach((url) => {
+      const img = new window.Image();
+      img.onload = () => setAvailableImages((prev) => ({ ...prev, [url]: true }));
+      img.onerror = () => setAvailableImages((prev) => ({ ...prev, [url]: false }));
+      img.src = url;
+    });
+  }, []);
 
   const filteredEvents = selectedCategory === 'all' 
     ? timelineEvents 
@@ -407,14 +423,17 @@ export default function SpaceJourneyPage() {
       <div className="w-full max-w-6xl">
         <div className="relative">
           {/* Timeline Line */}
-          <div className="absolute left-8 md:left-1/2 top-0 bottom-0 w-1 bg-gradient-to-b from-purple-500 to-blue-500 transform -translate-x-1/2"></div>
+          <div className="absolute left-8 md:left-1/2 top-0 bottom-0 w-1 bg-gradient-to-b from-purple-500 via-blue-500 to-cyan-500 transform -translate-x-1/2 shadow-lg shadow-purple-500/25 animate-pulse"></div>
+          
+          {/* Progress Indicator */}
+          <div className="absolute left-8 md:left-1/2 top-0 w-1 h-1 bg-gradient-to-r from-purple-500 to-cyan-500 rounded-full transform -translate-x-1/2 animate-pulse"></div>
 
           {/* Timeline Events */}
-          <div className="space-y-8">
+          <div className="space-y-12">
             {filteredEvents.map((event, index) => (
               <motion.div
                 key={event.id}
-                className={`relative flex items-center ${
+                className={`relative flex items-center group ${
                   index % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'
                 }`}
                 initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
@@ -422,35 +441,75 @@ export default function SpaceJourneyPage() {
                 transition={{ duration: 0.5, delay: index * 0.1 }}
               >
                 {/* Timeline Dot */}
-                <div className={`absolute left-8 md:left-1/2 w-4 h-4 bg-gradient-to-r ${getCategoryColor(event.category)} rounded-full border-4 border-[#0a0a1a] transform -translate-x-1/2 z-10`}></div>
+                <div className={`absolute left-8 md:left-1/2 w-5 h-5 bg-gradient-to-r ${getCategoryColor(event.category)} rounded-full border-4 border-[#0a0a1a] transform -translate-x-1/2 z-10 shadow-lg shadow-purple-500/25 transition-all duration-300 group-hover:scale-125 group-hover:shadow-xl group-hover:shadow-purple-500/40`}></div>
 
                 {/* Event Card */}
                 <motion.div
                   className={`w-full md:w-5/12 ${
-                    index % 2 === 0 ? 'md:pr-8' : 'md:pl-8'
+                    index % 2 === 0 ? 'md:pr-12' : 'md:pl-12'
                   }`}
                   whileHover={{ scale: 1.02 }}
                 >
                   <div
-                    className="bg-[#0a0a1a]/40 backdrop-blur-sm rounded-xl border border-purple-500/30 p-6 cursor-pointer"
+                    className="bg-[#0a0a1a]/60 backdrop-blur-md rounded-2xl border border-purple-500/40 p-6 cursor-pointer overflow-hidden shadow-xl shadow-purple-500/10 hover:shadow-2xl hover:shadow-purple-500/20 transition-all duration-300 hover:border-purple-500/60 hover:bg-[#0a0a1a]/80"
                     onClick={() => handleEventClick(event)}
                   >
-                    <div className="flex items-center gap-3 mb-3">
-                      <span className="text-2xl font-bold text-purple-400">{event.year}</span>
-                      <span className={`px-3 py-1 rounded-full text-xs font-medium bg-gradient-to-r ${getCategoryColor(event.category)} text-white`}>
-                        {event.category.toUpperCase()}
-                      </span>
+                    {/* Image Section */}
+                    {event.image && availableImages[event.image] && (
+                      <div className="mb-5 -mx-6 -mt-6">
+                        <div className="relative w-full h-52 overflow-hidden">
+                          <Image
+                            src={event.image}
+                            alt={event.title}
+                            fill
+                            className="object-cover transition-transform duration-500 group-hover:scale-110"
+                            sizes="(max-width: 768px) 100vw, 400px"
+                            onError={(e) => {
+                              const target = e.target as HTMLImageElement;
+                              target.style.display = 'none';
+                            }}
+                          />
+                          {/* Image Overlay */}
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+                          {/* Category Badge on Image */}
+                          <div className="absolute top-4 right-4">
+                            <span className={`px-3 py-1 rounded-full text-xs font-bold bg-gradient-to-r ${getCategoryColor(event.category)} text-white shadow-lg`}>
+                              {event.category.toUpperCase()}
+                            </span>
+                          </div>
+                          {/* Year Badge on Image */}
+                          <div className="absolute bottom-4 left-4">
+                            <span className="px-3 py-1 rounded-full text-sm font-bold bg-black/60 text-white backdrop-blur-sm">
+                              {event.year}
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    )}
+                    
+                    <div className="flex items-center gap-3 mb-4">
+                      {!event.image && (
+                        <span className="text-3xl font-bold text-purple-400">{event.year}</span>
+                      )}
+                      {!event.image && (
+                        <span className={`px-3 py-1 rounded-full text-xs font-medium bg-gradient-to-r ${getCategoryColor(event.category)} text-white`}>
+                          {event.category.toUpperCase()}
+                        </span>
+                      )}
                     </div>
-                    <h3 className="text-xl font-semibold text-white mb-2">{event.title}</h3>
-                    <p className="text-gray-400 text-sm mb-3">{event.era}</p>
+                    <h3 className="text-xl font-semibold text-white mb-3 leading-tight">{event.title}</h3>
+                    <p className="text-gray-400 text-sm mb-4 font-medium">{event.era}</p>
                     <p className="text-gray-300 text-sm leading-relaxed">
-                      {event.description.length > 150 
-                        ? event.description.substring(0, 150) + '...' 
+                      {event.description.length > 120 
+                        ? event.description.substring(0, 120) + '...' 
                         : event.description}
                     </p>
-                    {event.description.length > 150 && (
-                      <button className="mt-3 text-purple-400 hover:text-purple-300 text-sm font-medium">
-                        Read More →
+                    {event.description.length > 120 && (
+                      <button className="mt-4 text-purple-400 hover:text-purple-300 text-sm font-medium flex items-center gap-2 group-hover:gap-3 transition-all duration-300">
+                        Read More 
+                        <svg className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                        </svg>
                       </button>
                     )}
                   </div>
@@ -540,7 +599,7 @@ export default function SpaceJourneyPage() {
               {/* Content */}
               <div className="p-6">
                 {/* Image Section */}
-                {selectedEvent.image && !imageError ? (
+                {selectedEvent.image && availableImages[selectedEvent.image] && !imageError ? (
                   <div className="mb-6">
                     <div className="relative w-full h-64 md:h-80 rounded-lg overflow-hidden">
                       <Image
