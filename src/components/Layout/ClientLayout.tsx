@@ -9,6 +9,7 @@ import { SoundControl } from '@/components/UI/SoundControl';
 import { audioPlayer } from '@/utils/audio';
 import { applyBrowserFixes } from '@/utils/browserCompatibility';
 import { motion } from 'framer-motion';
+import { usePathname } from 'next/navigation';
 
 export default function ClientLayout({
   children,
@@ -17,6 +18,10 @@ export default function ClientLayout({
 }) {
   const [isFactVisible, setIsFactVisible] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
+  const pathname = usePathname();
+  
+  // Hide navbar on login page
+  const shouldShowNavbar = !pathname?.includes('/login');
 
   // Apply browser compatibility fixes on mount
   useEffect(() => {
@@ -42,8 +47,8 @@ export default function ClientLayout({
   if (!isMounted) {
     return (
       <div className="relative z-10">
-        <Menu />
-        <main className="relative z-10 pt-[65px]">
+        {shouldShowNavbar && <Menu />}
+        <main className={`relative z-10 ${shouldShowNavbar ? 'pt-[85px]' : ''}`}>
           {children}
         </main>
       </div>
@@ -55,25 +60,27 @@ export default function ClientLayout({
       <StarsCanvas />
       <ScrollProgressBar />
       <div className="relative z-10">
-        <Menu />
-        <main className="relative z-10 pt-[65px]">
+        {shouldShowNavbar && <Menu />}
+        <main className={`relative z-10 ${shouldShowNavbar ? 'pt-[85px]' : ''}`}>
           {children}
         </main>
       </div>
 
-      {/* Space Facts Button */}
-      <motion.button
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.5 }}
-        onClick={handleFactButtonClick}
-        onMouseEnter={() => audioPlayer.playHover()}
-        className="fixed bottom-4 xs:bottom-8 left-4 xs:left-8 px-4 xs:px-6 py-2 xs:py-3 rounded-full bg-space-purple-600 hover:bg-space-purple-700 text-white font-medium transition-all z-50 flex items-center gap-2 shadow-space-sm hover:shadow-space"
-      >
-        <StarIcon />
-        <span className="hidden xs:inline">Show me a fact!</span>
-        <span className="xs:hidden">Fact</span>
-      </motion.button>
+             {/* Space Facts Button - Hidden on login route */}
+       {shouldShowNavbar && (
+         <motion.button
+           initial={{ opacity: 0, y: 20 }}
+           animate={{ opacity: 1, y: 0 }}
+           transition={{ delay: 0.5 }}
+           onClick={handleFactButtonClick}
+           onMouseEnter={() => audioPlayer.playHover()}
+           className="fixed bottom-4 xs:bottom-8 left-4 xs:left-8 px-4 xs:px-6 py-2 xs:py-3 rounded-full bg-space-purple-600 hover:bg-space-purple-700 text-white font-medium transition-all z-50 flex items-center gap-2 shadow-space-sm hover:shadow-space"
+         >
+           <StarIcon />
+           <span className="hidden xs:inline">Show me a fact!</span>
+           <span className="xs:hidden">Fact</span>
+         </motion.button>
+       )}
 
       {/* Space Facts Component */}
       <SpaceFact 
